@@ -30,6 +30,9 @@ from requests.adapters import ConnectionError
 from requests.models import InvalidURL
 from transform import *
 
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 API_URL = 'https://pgorelease.nianticlabs.com/plfe/rpc'
@@ -630,7 +633,7 @@ def main():
 
 def process_step(args, api_endpoint, access_token, profile_response,
                  pokemonsJSON, ignore, only):
-    print('[+] Searching for Pokemon at location {} {}'.format(FLOAT_LAT, FLOAT_LONG))
+    #print('[+] Searching for Pokemon at location {} {}'.format(FLOAT_LAT, FLOAT_LONG))
     origin = LatLng.from_degrees(FLOAT_LAT, FLOAT_LONG)
     step_lat = FLOAT_LAT
     step_long = FLOAT_LONG
@@ -706,6 +709,14 @@ transform_from_wgs_to_gcj(Location(Fort.Latitude, Fort.Longitude))
             "id": poke.pokemon.PokemonId,
             "name": pokename
         }
+        dont_have_list = [3, 6, 8, 9, 12, 15, 31, 34, 38, 40, 45, 51, 62, 65, 68, 71, 
+         76, 78, 80, 81, 82, 83, 86, 87, 89, 91, 93, 94, 97, 103, 106, 107, 110, 113, 
+         114, 115, 117, 121, 122, 123, 124, 131, 132, 133, 137, 139, 141, 143, 144, 145, 146]
+        if (pokemons[poke.SpawnPointId]['id']) in dont_have_list:
+            datestr = datetime.fromtimestamp(pokemons[poke.SpawnPointId]['disappear_time'])
+            dateoutput = datestr.strftime("%H:%M:%S")
+            print '★★★', pokemons[poke.SpawnPointId]['id'], pokemons[poke.SpawnPointId]['name'], \
+            pokemons[poke.SpawnPointId]['lat'],pokemons[poke.SpawnPointId]['lng'], 'disappear@'+dateoutput,'★★★'
 
 def clear_stale_pokemons():
     current_time = time.time()
