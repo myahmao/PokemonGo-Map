@@ -701,18 +701,18 @@ transform_from_wgs_to_gcj(Location(Fort.Latitude, Fort.Longitude))
             (poke.Latitude, poke.Longitude) = \
                 transform_from_wgs_to_gcj(Location(poke.Latitude,
                     poke.Longitude))
-
-        pokemons[poke.SpawnPointId] = {
-            "lat": poke.Latitude,
-            "lng": poke.Longitude,
-            "disappear_time": disappear_timestamp,
-            "id": poke.pokemon.PokemonId,
-            "name": pokename
-        }
-        dont_have_list = [3, 6, 8, 9, 12, 15, 31, 34, 38, 40, 45, 51, 62, 65, 68, 71, 
-         76, 78, 80, 81, 82, 83, 86, 87, 89, 91, 93, 94, 97, 103, 106, 107, 110, 113, 
-         114, 115, 117, 121, 122, 123, 124, 131, 132, 133, 137, 139, 141, 143, 144, 145, 146]
-        if (pokemons[poke.SpawnPointId]['id']) in dont_have_list:
+        dont_have_list = [3, 6, 8, 9, 12, 15, 25, 26, 31, 34, 36, 38, 40, 45, 51, 62, 65, 68, 71, 
+         76, 78, 80, 81, 82, 83, 86, 87, 89, 91, 93, 94, 96, 97, 103, 106, 107, 110, 113, 
+         114, 115, 117, 121, 122, 123, 124, 131, 132, 133, 134, 135, 137, 139, 141, 143, 144, 145, 146]
+        if (poke.pokemon.PokemonId) in dont_have_list:
+            pokemons[poke.SpawnPointId] = {
+                "lat": poke.Latitude,
+                "lng": poke.Longitude,
+                "disappear_time": disappear_timestamp,
+                "id": poke.pokemon.PokemonId,
+                "name": pokename
+            }
+        
             datestr = datetime.fromtimestamp(pokemons[poke.SpawnPointId]['disappear_time'])
             dateoutput = datestr.strftime("%H:%M:%S")
             print '★★★', pokemons[poke.SpawnPointId]['id'], pokemons[poke.SpawnPointId]['name'], \
