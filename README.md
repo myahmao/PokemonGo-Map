@@ -1,29 +1,39 @@
-##Please submit all pull requests to the [develop branch](https://github.com/AHAAAAAAA/PokemonGo-Map/tree/develop) #
+# PokemonGo Map ![Python 2.7](https://img.shields.io/badge/python-2.7-blue.svg)[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/PoGoMapDev)
 
-#[Official Twitter] (https://twitter.com/PoGoMDev) Please give us a follow or contact.
+
+Live visualization of all the pokemon (with option to show gyms and pokestops) in your area. This is a proof of concept that we can load all the pokemon visible nearby given a location. Currently runs on a Flask server displaying a Google Maps with markers on it.
+
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://github.com/AHAAAAAAA/PokemonGo-Map/wiki/Heroku-Deployment)
+
+
+#[Official Twitter] (https://twitter.com/PoGoMDev) Please give us a follow or contact us here.
 #[Official Website] (https://jz6.github.io/PoGoMap/)#
 
-<p align="center">
-<img src="https://raw.githubusercontent.com/AHAAAAAAA/PokemonGo-Map/master/static/cover.png">
-</p>
+![Map](https://i.imgur.com/ZjB9lo0.jpg)
 
-# PokemonGo Map
 
-[![Build Status](https://travis-ci.org/AHAAAAAAA/PokemonGo-Map.svg?branch=master)](https://travis-ci.org/AHAAAAAAA/PokemonGo-Map) [![Coverage Status](https://coveralls.io/repos/github/AHAAAAAAA/PokemonGo-Map/badge.svg?branch=master)](https://coveralls.io/github/AHAAAAAAA/PokemonGo-Map?branch=master)
+## How to setup
 
-#[Official Website] (https://jz6.github.io/PoGoMap/)#
-#[Official Twitter] (https://twitter.com/PoGoMDev)#
+For instructions on how to setup and run the tool, please refer to the project [wiki](https://github.com/AHAAAAAAA/PokemonGo-Map/wiki), or the [video guide](https://www.youtube.com/watch?v=RJKAulPCkRI).
 
-[Android Port](https://github.com/omkarmoghe/Pokemap)
 
-[Video Setup Tutorial](https://www.youtube.com/watch?v=nplNFl3SpOI)
+## Android Version
 
-Live map visualization of all pokemon in your area with options to also show gyms, filter pokemon, localization, and pokestops. This is a proof of concept. Currently runs on a Flask server displaying a custom Google Map with markers on it.
+There is an [Android port](https://github.com/omkarmoghe/Pokemap) in the works. All Android related prs and issues please refer to this [repo](https://github.com/omkarmoghe/Pokemap).
 
-Using this software is against the ToS and can get you banned. Use at your own risk.
+## iOS Version
 
-Building off [Mila432](https://github.com/Mila432/Pokemon_Go_API)'s PokemonGo API, [tejado's additions](https://github.com/tejado/pokemongo-api-demo), [leegao's additions](https://github.com/leegao/pokemongo-api-demo/tree/simulation) and [Flask-GoogleMaps](https://github.com/rochacbruno/Flask-GoogleMaps).
+There is an [iOS port](https://github.com/istornz/iPokeGo) in the works. All iOS related prs and issues please refer to this [repo](https://github.com/istornz/iPokeGo).
 
----
-#For instructions, please refer to [the wiki](https://github.com/AHAAAAAAA/PokemonGo-Map/wiki)#
+## Warnings
 
+Using this software is against the ToS of the game. You can get banned, use this tool at your own risk.
+
+
+## Contributions
+
+Please submit all pull requests to [develop](https://github.com/AHAAAAAAA/PokemonGo-Map/tree/develop) branch.
+
+Building off [tejado's python pgoapi](https://github.com/tejado/pgoapi), [Mila432](https://github.com/Mila432/Pokemon_Go_API)'s API, [leegao's additions](https://github.com/leegao/pokemongo-api-demo/tree/simulation) and [Flask-GoogleMaps](https://github.com/rochacbruno/Flask-GoogleMaps). Current version relies primarily on the pgoapi and Google Maps JS API.
+
+Bitcoin donations appreciated! **18ABe5rhZgLR6zdH27hDWp8DdTkWKJoKwo**
