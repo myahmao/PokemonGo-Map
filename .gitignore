@@ -4,7 +4,6 @@
 *.db-journal
 *.sass-cache
 *.orig
-*.bak
 config/config.ini
 static/dist/
 node_modules/
