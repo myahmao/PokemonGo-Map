@@ -1,10 +1,10 @@
 *.pyc
 *.idea
-*.db
 *.db-journal
 *.sass-cache
 *.orig
 *.conf
+*.db
 config/config.ini
 static/dist/
 node_modules/

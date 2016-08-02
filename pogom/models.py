@@ -14,18 +14,57 @@ from . import config
 from .utils import get_pokemon_name, get_args, send_to_webhook
 from .transform import transform_from_wgs_to_gcj
 from .customLog import printPokemon
+import smtplib
+import base64
+import email
+import mimetypes
+from email.MIMEText import MIMEText
+import time,sys
+
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 log = logging.getLogger(__name__)
 
 args = get_args()
 db = None
 
-still_want_list = [2, 3, 8, 9, 12, 15, 25, 26, 31, 36, 37, 39, 40, 43, 45, 51, 62, 66, 67, 71, 
+still_want_list = [2, 3, 6, 8, 9, 12, 15, 25, 26, 31, 34, 36, 37, 38, 39, 40, 43, 45, 51, 62, 65, 66, 67, 68, 71, 
          78, 80, 81, 82, 86, 87, 89, 91, 92, 93, 94, 96, 97, 103, 106, 107, 108, 110, 113, 
          114, 115, 117, 121, 122, 123, 124, 128, 130, 131, 132, 133, 134, 135, 137, 138, 139,
          140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151]
 
-dont_have_list = [6, 34, 38, 65, 68, 76, 83, 115, 122, 131, 132, 139, 141, 144, 145, 146]
+dont_have_list = [76, 83, 115, 122, 131, 132, 139, 141, 143, 144, 145, 146, 149, 150, 151]
+
+def sendemail(txtmsg, id, name, lat, lont, exp_time):
+    f = open('email.conf', 'r')
+    for line in f:   ## iterates over the lines of the file
+        line = line.strip()
+    users=line.split(',')
+    fromaddr='Pokomon Go Daemon'
+    toaddr=users[0]
+    user=users[1]
+    passwd=users[2]
+    #print toaddr,user,passwd
+    smtp_host = 'smtp.gmail.com'
+    smtp_port = 587
+    server = smtplib.SMTP()
+    server.connect(smtp_host,smtp_port)
+    server.ehlo()
+    server.starttls()
+    server.login(user,passwd)
+    #fromaddr = raw_input('Send mail by the name of: ')
+    #tolist = raw_input('To: ').split()
+    #sub = raw_input('Subject: ')
+    msg = email.MIMEMultipart.MIMEMultipart()
+    msg['From'] = fromaddr
+    msg['To'] = toaddr
+    msg['Subject'] = txtmsg
+    str= (time.strftime("%H:%M:%S"))
+    msg.attach(MIMEText("New Pokemon [%d: %s] found at %s,%s exp %s \n\n" %(id, name, lat, lont, exp_time)))
+    msg.attach(MIMEText("Sent at time %s" % (str)))
+    server.sendmail(user,toaddr,msg.as_string())
+    print "Email to %s send" % (toaddr)
 
 def init_database():
     global db
@@ -245,6 +284,10 @@ def parse_map(map_dict, iteration_num, step, step_location):
                 if p['pokemon_data']['pokemon_id'] in dont_have_list or p['pokemon_data']['pokemon_id'] in still_want_list:
                     print p['pokemon_data']['pokemon_id'],get_pokemon_name(p['pokemon_data']['pokemon_id']), p['latitude'],p['longitude'],c_t
                     printPokemon(p['pokemon_data']['pokemon_id'],p['latitude'],p['longitude'], d_t)
+                    if p['pokemon_data']['pokemon_id'] in dont_have_list:
+                        name = get_pokemon_name(p['pokemon_data']['pokemon_id'])
+                        txtmsg = "【pokemon】 [%s: %s] at (%s,%s), exp at %s" % (p['pokemon_data']['pokemon_id'], name, p['latitude'],p['longitude'], c_t)
+                        sendemail(txtmsg, p['pokemon_data']['pokemon_id'], name, p['latitude'],p['longitude'], c_t)
                     pokemons[p['encounter_id']] = {
                         'encounter_id': b64encode(str(p['encounter_id'])),
                         'spawnpoint_id': p['spawnpoint_id'],
